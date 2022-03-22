@@ -12,6 +12,18 @@ const UTag = props => {
     )
 }
 
+const AUthor = props => {
+    const author_name = props.author;
+    const aurl = "https://scholar.google.com/scholar?hl=en&q=" + author_name;
+    return (
+        <div class='rel_author'>
+            <a href={aurl}>
+                {author_name}
+            </a>
+        </div>
+    )
+}
+
 const Paper = props => {
     const p = props.paper;
 
@@ -20,6 +32,7 @@ const Paper = props => {
     const subber = () => fetch("/sub/" + p.id + "/" + prompt("tag to subtract from this paper:"))
                         .then(response => console.log(response.text()));
     const utags = p.utags.map((utxt, ix) => <UTag key={ix} tag={utxt} />);
+    const authors = p.authors.map((atxt, ix) => <AUthor key={ix} author={atxt} />);
     const similar_url = "/?rank=pid&pid=" + p.id;
     const inspect_url = "/inspect?pid=" + p.id;
     const thumb_img = p.thumb_url === '' ? null : <div class='rel_img'><img src={p.thumb_url} /></div>;
@@ -35,11 +48,22 @@ const Paper = props => {
         )
     }
 
+    let authors_controls = null;
+    authors_controls = (
+        <div class='rel_authors'>
+            {authors}
+        </div>
+    )
+
     return (
     <div class='rel_paper'>
         <div class="rel_score">{p.weight.toFixed(2)}</div>
         <div class='rel_title'><a href={'http://arxiv.org/abs/' + p.id}>{p.title}</a></div>
-        <div class='rel_authors'>{p.authors}</div>
+        {authors_controls}
+        <div class="rel_useful_links">
+        <div class='rel_cnct_p'><a href={'https://www.connectedpapers.com/search?q=' + p.title}>ConnectedPapers</a></div>
+        <div class='rel_gs'><a href={'https://scholar.google.com/scholar?hl=en&q=' + p.title}>GoogleScholar</a></div>
+        </div>
         <div class="rel_time">{p.time}</div>
         <div class='rel_tags'>{p.tags}</div>
         {utag_controls}

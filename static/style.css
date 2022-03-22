@@ -48,6 +48,23 @@ body {
     color: #844;
 }
 
+.rel_useful_links {
+    font-size: 16px;
+}
+.rel_cnct_p {
+    display: inline-block;
+}
+.rel_cnct_p a {
+    color: #622;
+}
+.rel_gs {
+    display: inline-block;
+    margin-left: 5px;
+}
+.rel_gs a {
+    color: #622;
+}
+
 .rel_paper {
     margin-bottom: 10px;
     padding: 10px;
@@ -64,6 +81,16 @@ body {
     font-style: italic;
     font-size: 16px;
 }
+.rel_author {
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/*
+.rel_author a {
+    color: #000;
+}*/
+
 .rel_time {
     color: #050;
     display: inline-block;

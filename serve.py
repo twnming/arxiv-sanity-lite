@@ -95,7 +95,7 @@ def render_pid(pid):
         id = d['_id'],
         title = d['title'],
         time = d['_time_str'],
-        authors = ', '.join(a['name'] for a in d['authors']),
+        authors = [a['name'] for a in d['authors']],
         tags = ', '.join(t['term'] for t in d['tags']),
         utags = [t for t, pids in tags.items() if pid in pids],
         summary = d['summary'],
