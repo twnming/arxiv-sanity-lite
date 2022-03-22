@@ -30,7 +30,8 @@ if __name__ == '__main__':
     """
 
     # query string of papers to look for
-    q = 'cat:cs.CV+OR+cat:cs.LG+OR+cat:cs.CL+OR+cat:cs.AI+OR+cat:cs.NE+OR+cat:cs.RO'
+    # q = 'cat:cs.CV+OR+cat:cs.LG+OR+cat:cs.CL+OR+cat:cs.AI+OR+cat:cs.NE+OR+cat:cs.RO'
+    q = 'cat:stat.ML+OR+cat:cs.NE+OR+cat:cs.CV+OR+cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.LG+OR+cat:cs.RO+OR+cat:cs.MM'
 
     pdb = get_papers_db(flag='c')
     mdb = get_metas_db(flag='c')
@@ -101,7 +102,7 @@ if __name__ == '__main__':
             zero_updates_in_a_row = 0
 
         # zzz
-        time.sleep(1 + random.uniform(0, 3))
+        time.sleep(2 + random.uniform(0, 3))
 
     # exit with OK status if anything at all changed, but if nothing happened then raise 1
     sys.exit(0 if total_updated > 0 else 1)
