@@ -63,6 +63,9 @@ const Paper = props => {
         <div class="rel_useful_links">
         <div class='rel_cnct_p'><a href={'https://www.connectedpapers.com/search?q=' + p.title}>ConnectedPapers</a></div>
         <div class='rel_gs'><a href={'https://scholar.google.com/scholar?hl=en&q=' + p.title}>GoogleScholar</a></div>
+        <div class='rel_ss'><a href={'https://www.semanticscholar.org/search?q=' + p.title}>SemanticScholar</a></div>
+        <div class='rel_rp'><a href={'https://readpaper.com/search/' + p.title}>ReadPaper</a></div>
+        <div class='rel_pdf'><a href={'http://arxiv.org/pdf/' + p.id}>PDF</a></div>
         </div>
         <div class="rel_time">{p.time}</div>
         <div class='rel_tags'>{p.tags}</div>

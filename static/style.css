@@ -55,14 +55,35 @@ body {
     display: inline-block;
 }
 .rel_cnct_p a {
-    color: #444;
+    color: #333;
 }
 .rel_gs {
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 6px;
 }
 .rel_gs a {
-    color: #444;
+    color: #333;
+}
+.rel_ss {
+    display: inline-block;
+    margin-left: 6px;
+}
+.rel_ss a {
+    color: #333;
+}
+.rel_rp {
+    display: inline-block;
+    margin-left: 6px;
+}
+.rel_rp a {
+    color: #333;
+}
+.rel_pdf {
+    display: inline-block;
+    margin-left: 6px;
+}
+.rel_pdf a {
+    color: #333;
 }
 
 .rel_paper {
