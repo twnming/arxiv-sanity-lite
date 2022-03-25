@@ -90,14 +90,14 @@ if __name__ == '__main__':
              (k, len(papers), nhad, nreplace, nnew, prevn))
 
         # early termination criteria
-        if nnew == 0:
+        if nnew + nreplace == 0:
             zero_updates_in_a_row += 1
             if args.break_after > 0 and zero_updates_in_a_row >= args.break_after:
                 logging.info("breaking out early, no new papers %d times in a row" % (args.break_after, ))
                 break
-            elif k == 0:
-                logging.info("our very first call for the latest there were no new papers, exitting")
-                break
+            # elif k == 0:
+            #     logging.info("our very first call for the latest there were no new papers, exitting")
+            #     break
         else:
             zero_updates_in_a_row = 0
 
