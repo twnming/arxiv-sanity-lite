@@ -10,6 +10,7 @@ ideas:
 import os
 import re
 import time
+import math
 from random import shuffle
 
 import numpy as np
@@ -283,6 +284,8 @@ def main():
         keep = [i for i,pid in enumerate(pids) if pid not in have]
         pids, scores = [pids[i] for i in keep], [scores[i] for i in keep]
 
+    page_number_total = max(1, math.ceil(len(pids)/RET_NUM))
+
     # crop the number of results to RET_NUM, and paginate
     try:
         page_number = max(1, int(opt_page_number))
@@ -319,6 +322,7 @@ def main():
     context['gvars']['search_query'] = opt_q
     context['gvars']['svm_c'] = str(C)
     context['gvars']['page_number'] = str(page_number)
+    context['gvars']['page_number_total'] = str(page_number_total)
     return render_template('index.html', **context)
 
 @app.route('/inspect', methods=['GET'])
