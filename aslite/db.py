@@ -103,6 +103,7 @@ flag='r': open for read-only
 PAPERS_DB_FILE = os.path.join(DATA_DIR, 'papers.db')
 # stores account-relevant info, like which tags exist for which papers
 DICT_DB_FILE = os.path.join(DATA_DIR, 'dict.db')
+AUTHORS_DB_FILE = os.path.join(DATA_DIR, 'authors.db')
 
 def get_papers_db(flag='r', autocommit=True):
     assert flag in ['r', 'c']
@@ -128,6 +129,11 @@ def get_email_db(flag='r', autocommit=True):
     assert flag in ['r', 'c']
     edb = SqliteDict(DICT_DB_FILE, tablename='email', flag=flag, autocommit=autocommit)
     return edb
+
+def get_interest_authors_db(flag='r', autocommit=True):
+    assert flag in ['r', 'c']
+    adb = CompressedSqliteDict(AUTHORS_DB_FILE, tablename='authors', flag=flag, autocommit=autocommit)
+    return adb
 
 # -----------------------------------------------------------------------------
 """

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block variables %}
+{% endblock %}
+
+{% block content %}
+<div id="authorinterestwrap">
+
+    {% if user %}
+    <div>
+        <div>
+            <div><b>Current session</b></div>
+            <div>Logged in user: {{ user }}</div>
+        </div>
+        <br>
+        <div>
+            <div><b>Interest Authors</b></div>
+            <div> {{ interest_authors }} </div>
+            <div>
+                <form id="update-interest-form" action="{{ url_for('update_interest_author') }}" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="interest_author" placeholder="Use ; to split multiple names, prefix with '-' to remove" value="">
+                    </div>
+                    <input type="submit" class="btn" value="update">
+                </form>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% else %}
+    <div>
+        <div><b>Please log in first</b></div>        
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block elements %}
+{% endblock %}

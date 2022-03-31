@@ -20,7 +20,7 @@ from flask import render_template
 from flask import g # global session-level object
 from flask import session
 
-from aslite.db import get_papers_db, get_metas_db, get_tags_db, get_last_active_db, get_email_db
+from aslite.db import get_papers_db, get_metas_db, get_tags_db, get_last_active_db, get_email_db, get_interest_authors_db
 from aslite.db import load_features
 
 # -----------------------------------------------------------------------------
@@ -62,6 +62,15 @@ def get_metas():
         g._mdb = get_metas_db()
     return g._mdb
 
+def get_interest_authors():
+    if g.user is None:
+        return []
+    if not hasattr(g, '_interest_authors'):
+        with get_interest_authors_db() as authors_db:
+            interest_authors = authors_db[g.user] if g.user in authors_db else []
+        g._interest_authors = interest_authors
+    return g._interest_authors
+
 @app.before_request
 def before_request():
     g.user = session.get('user', None)
@@ -90,12 +99,15 @@ def render_pid(pid):
     thumb_path = 'static/thumb/' + pid + '.jpg'
     thumb_url = thumb_path if os.path.isfile(thumb_path) else ''
     d = pdb[pid]
+    interest_authors = get_interest_authors()
+    l_interest_authors = [a.lower() for a in interest_authors]
     return dict(
         weight = 0.0,
         id = d['_id'],
         title = d['title'],
         time = d['_time_str'],
-        authors = [a['name'] for a in d['authors']],
+        authors = [(a['name'], a['name'].lower() in l_interest_authors) for a in d['authors']],
+        authors_str = ', '.join(a['name'] for a in d['authors']),
         tags = ', '.join(t['term'] for t in d['tags']),
         utags = [t for t, pids in tags.items() if pid in pids],
         summary = d['summary'],
@@ -340,6 +352,13 @@ def profile():
         context['email'] = email
     return render_template('profile.html', **context)
 
+@app.route('/author_interest')
+def author_interest():
+    context = default_context()
+    interest_authors = get_interest_authors()
+    context['interest_authors'] = ' | '.join(interest_authors)
+    return render_template('author_interest.html', **context)
+
 @app.route('/stats')
 def stats():
     context = default_context()
@@ -492,3 +511,39 @@ def register_email():
                 edb[g.user] = email
 
     return redirect(url_for('profile'))
+
+@app.route('/update_interest_author', methods=['POST'])
+def update_interest_author():
+    if g.user is None:
+        return "error, not logged in"
+
+    iau = request.form['interest_author']
+    if len(iau) == 0:
+        return "error, none interest author input"
+
+    with get_interest_authors_db(flag='c') as authors_db:
+
+        # create the user if we don't know about them yet with an empty library
+        if not g.user in authors_db:
+            authors_db[g.user] = []
+
+        # fetch the user library object
+        interest_authors = authors_db[g.user]
+
+        authors = iau.split(';')
+        for a in authors:
+            if a.startswith('-'):
+                try:
+                    interest_authors.remove(a[1:]) # remove an author
+                    print('remove interest author', a[1:])
+                except ValueError as e:
+                    print(a[1:], 'is not exist')                
+            else:
+                if not a in interest_authors:
+                    interest_authors.append(a) # add an author
+                print('add interest author', a)
+
+        # write back to database
+        authors_db[g.user] = interest_authors
+
+    return redirect(url_for('author_interest'))

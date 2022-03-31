@@ -25,6 +25,9 @@ var user = {{ user | tojson }};
     <a href="/profile" id="login-link">
         {{ 'profile' if user else 'login' }}
     </a>
+    <a href="/author_interest" id="author-interest-link">
+        {{ 'author-interest' if user else '' }}
+    </a>
     <a href="/stats" id="stats-link">stats</a>
     <a href="/about" id="stats-link">about</a>
 </div>

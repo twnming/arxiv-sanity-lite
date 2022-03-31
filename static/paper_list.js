@@ -13,15 +13,27 @@ const UTag = props => {
 }
 
 const AUthor = props => {
-    const author_name = props.author;
+    const author_name = props.author[0];
+    const is_watched_author = props.author[1];
     const aurl = "https://scholar.google.com/scholar?hl=en&q=" + author_name;
-    return (
-        <div class='rel_author'>
-            <a href={aurl}>
-                {author_name}
-            </a>
-        </div>
-    )
+    if (is_watched_author) {
+        return (
+            <div class='rel_author_i'>
+                <a href={aurl}>
+                    {author_name}
+                </a>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div class='rel_author'>
+                <a href={aurl}>
+                    {author_name}
+                </a>
+            </div>
+        )
+    }
 }
 
 const Paper = props => {

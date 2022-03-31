@@ -24,6 +24,10 @@ body {
     float: right;
     margin: 0 10px 0 10px;
  }
+ #author-interest-link {
+    float: right;
+    margin: 0 10px 0 10px;
+ }
 #controls {
     margin: 10px 40px 0 40px;
     background-color: #eee;
@@ -107,6 +111,13 @@ body {
     margin-right: 6px;
 }
 
+.rel_author_i {
+    display: inline-block;
+    margin-right: 6px;
+}
+.rel_author_i a {
+    color: #F00;
+}
 /*
 .rel_author a {
     color: #000;
@@ -251,12 +262,12 @@ body {
     margin: 0;
     padding: 0;
 }
-#profile-login-form, #email-form {
+#profile-login-form, #email-form, #update-interest-form {
     max-width: 400px;
     margin: 30px auto;
     font-size: 18px;
 }
-#profile-login-form .form-control, #email-form .form-control {
+#profile-login-form .form-control, #email-form .form-control, #update-interest-form .form-control {
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -269,7 +280,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-#profile-login-form .btn, #email-form .btn {
+#profile-login-form .btn, #email-form .btn, #update-interest-form .btn {
     display: block;
     width: 100%;
     padding: 5px;
@@ -298,6 +309,11 @@ body {
     margin: 10px 40px 0 40px;
     font-size: 16px;
 }
+#authorinterestwrap {
+    margin: 10px 40px 0 40px;
+    font-size: 16px;
+}
+
 #aboutwrap {
     margin: 10px 40px 0 40px;
     font-size: 16px;
@@ -328,7 +344,7 @@ body {
     color: #009;
 }
 @media only screen and (max-width: 720px) {
-    #controls, #wrap, #profilewrap, #wordwrap, #aboutwrap, #statswrap {
+    #controls, #wrap, #profilewrap, #authorinterestwrap, #wordwrap, #aboutwrap, #statswrap {
 		margin: 10px 20px 0 20px;
 	}
 
