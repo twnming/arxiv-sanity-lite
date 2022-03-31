@@ -19,7 +19,7 @@ const AUthor = props => {
     if (is_watched_author) {
         return (
             <div class='rel_author_i'>
-                <a href={aurl}>
+                <a href={aurl} target="_blank">
                     {author_name}
                 </a>
             </div>
@@ -28,7 +28,7 @@ const AUthor = props => {
     else {
         return (
             <div class='rel_author'>
-                <a href={aurl}>
+                <a href={aurl} target="_blank">
                     {author_name}
                 </a>
             </div>
@@ -70,14 +70,14 @@ const Paper = props => {
     return (
     <div class='rel_paper'>
         <div class="rel_score">{p.weight.toFixed(2)}</div>
-        <div class='rel_title'><a href={'http://arxiv.org/abs/' + p.id}>{p.title}</a></div>
+        <div class='rel_title'><a href={'http://arxiv.org/abs/' + p.id} target="_blank">{p.title}</a></div>
         {authors_controls}
         <div class="rel_useful_links">
-        <div class='rel_cnct_p'><a href={'https://www.connectedpapers.com/search?q=' + p.title}>ConnectedPapers</a></div>
-        <div class='rel_gs'><a href={'https://scholar.google.com/scholar?hl=en&q=' + p.title}>GoogleScholar</a></div>
-        <div class='rel_ss'><a href={'https://www.semanticscholar.org/search?q=' + p.title}>SemanticScholar</a></div>
-        <div class='rel_rp'><a href={'https://readpaper.com/search/' + p.title}>ReadPaper</a></div>
-        <div class='rel_pdf'><a href={'http://arxiv.org/pdf/' + p.id}>PDF</a></div>
+        <div class='rel_cnct_p'><a href={'https://www.connectedpapers.com/search?q=' + p.title} target="_blank">ConnectedPapers</a></div>
+        <div class='rel_gs'><a href={'https://scholar.google.com/scholar?hl=en&q=' + p.title} target="_blank">GoogleScholar</a></div>
+        <div class='rel_ss'><a href={'https://www.semanticscholar.org/search?q=' + p.title} target="_blank">SemanticScholar</a></div>
+        <div class='rel_rp'><a href={'https://readpaper.com/search/' + p.title} target="_blank">ReadPaper</a></div>
+        <div class='rel_pdf'><a href={'http://arxiv.org/pdf/' + p.id} target="_blank">PDF</a></div>
         </div>
         <div class="rel_time">{p.time}</div>
         <div class='rel_tags'>{p.tags}</div>
