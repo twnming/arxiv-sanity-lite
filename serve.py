@@ -186,15 +186,25 @@ def search_rank(q: str = ''):
         return [], [] # no query? no results
     qs = q.lower().strip().split() # split query by spaces and lowercase
 
+    author_s = False
+    if q.startswith("au:"):
+        _qs = q[3:].lower().split(';') # split query by ;
+        qs = [t.strip() for t in _qs]
+        author_s = True
+
     pdb = get_papers()
     match = lambda s: sum(min(3, s.lower().count(qp)) for qp in qs)
     matchu = lambda s: sum(int(s.lower().count(qp) > 0) for qp in qs)
+    matcha = lambda s: sum(int(qp in s) for qp in qs)
     pairs = []
     for pid, p in pdb.items():
         score = 0.0
-        score += 10.0 * matchu(' '.join([a['name'] for a in p['authors']]))
-        score += 20.0 * matchu(p['title'])
-        score += 1.0 * match(p['summary'])
+        if author_s:
+            score += 10.0 * matcha([a['name'].lower() for a in p['authors']])
+        else:
+            score += 10.0 * matchu(' '.join([a['name'] for a in p['authors']]))
+            score += 20.0 * matchu(p['title'])
+            score += 1.0 * match(p['summary'])
         if score > 0:
             pairs.append((score, pid))
 
